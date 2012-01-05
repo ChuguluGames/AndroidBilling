@@ -1,0 +1,5 @@
+VERSION=1.3.0
+PROJECT_PATH=/Users/davidbillamboz/Projects/AndroidBilling/android
+PACKAGE=com.phonegap.androidbilling
+ACTIVITY=AndroidBilling
+TARGET=23

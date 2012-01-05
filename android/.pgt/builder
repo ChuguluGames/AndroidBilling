@@ -1,0 +1,30 @@
+#! /bin/sh
+
+# create a bin dir in brunch
+echo "\n-------------------------\n"
+
+echo "Starting the custom builder"
+
+# loading the phonegap config
+. android/.phonegap/config
+
+echo "Cleaning brunch/android/"
+rm -rf brunch/android/
+mkdir brunch/android/
+
+echo "Updating brunch/android/"
+
+# copy phonegap.js in the vendor folder
+cp -rf brunch/src/.android/ brunch/src/
+brunch build brunch
+
+# copy compiled css and js and assets
+cp -r brunch/build/web/* brunch/android/
+
+# get index.html content, change the paths, put it in a new file
+echo "Changing paths of index.html"
+sed -e 's/build\/web\///g' brunch/index.html > brunch/android/index.html
+
+# copy the web version of phonegap in the folder
+cp -rf brunch/src/.web/ brunch/src/
+brunch build brunch
