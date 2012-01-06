@@ -1,11 +1,15 @@
 package com.phonegap.store;
 
+import com.phonegap.store.Store;
+import com.phonegap.androidbilling.AndroidBilling;
+
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.phonegap.api.Plugin;
@@ -13,41 +17,58 @@ import com.phonegap.api.PluginResult;
 import com.phonegap.api.PluginResult.Status;
 
 public class StorePlugin extends Plugin {
+	private static final String TAG = "StorePlugin";
 
-  public static final String CMD_REQUEST_PAYMENT = "requestPayment";
-  public static final String CMD_GET_PRODUCTS = "getProducts";
+	public static final String CMD_REQUEST_PAYMENT = "requestPayment";
+	public static final String CMD_GET_PRODUCTS = "getProducts";
 
-  /*
-  * Executes the request and returns PluginResult.
-  *
-  * @param action action to perform.
-  * @param data input data.
-  * @param callbackId The callback id used when calling back into JavaScript.
-  * @return A PluginResult object with a status and message.
-  *
-  * @see com.phonegap.api.Plugin#execute(java.lang.String,
-  * org.json.JSONArray, java.lang.String)
-  */
-  @Override
-  public PluginResult execute(String action, JSONArray arguments, String callbackId) {
-    Log.d("HelloWorldPlugin", "Plugin Called");
+	/*
+	* Executes the request and returns PluginResult.
+	*
+	* @param action action to perform.
+	* @param data input data.
+	* @param callbackId The callback id used when calling back into JavaScript.
+	* @return A PluginResult object with a status and message.
+	*
+	* org.json.JSONArray, java.lang.String)
+	*/
 
-    PluginResult result = null;
+	@Override
+	public PluginResult execute(String action, JSONArray arguments, String callbackId) {
+		Log.d(TAG, "Plugin Called");
 
-    if (action.equals(CMD_REQUEST_PAYMENT)) {
-      Log.d("StorePlugin", "execute requestPayment");
-      result = new PluginResult( Status.OK );
+		PluginResult result = null;
 
-    } else if (action.equals(CMD_GET_PRODUCTS)) {
-      Log.d("StorePlugin", "execute getProducts");
-      result = new PluginResult( Status.OK );
+		if (action.equals(CMD_REQUEST_PAYMENT)) {
+			Log.d(TAG, "Execute requestPayment");
+			this.requestPayment();
 
-    } else {
-      Log.d( "StorePlugin", "Invalid action : " + action + " passed");
-      result = new PluginResult(Status.INVALID_ACTION);
-    }
+			result = new PluginResult( Status.OK );
 
-    return result;
-  };
+		} else if (action.equals(CMD_GET_PRODUCTS)) {
+			Log.d(TAG, "Execute getProducts");
+			this.getProducts();
+			result = new PluginResult( Status.OK );
+
+		} else {
+			Log.e(TAG, "Invalid action : " + action + " passed");
+			result = new PluginResult(Status.INVALID_ACTION);
+		}
+
+		return result;
+	};
+
+	private void getProducts() {
+
+		AndroidBilling context = (AndroidBilling) this.ctx;
+		Store store = context.store;
+		String test = store.test;
+
+		Log.d(TAG, test);
+	}
+
+	private void requestPayment() {
+
+	}
 
 }
