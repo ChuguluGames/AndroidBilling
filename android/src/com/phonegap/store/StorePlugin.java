@@ -60,11 +60,8 @@ public class StorePlugin extends Plugin {
 
 	private void getProducts() {
 
-		AndroidBilling context = (AndroidBilling) this.ctx;
-		Store store = context.store;
-		String test = store.test;
+		Store store = (Store) ((AndroidBilling) this.ctx).store;
 
-		Log.d(TAG, test);
 	}
 
 	private void requestPayment() {
