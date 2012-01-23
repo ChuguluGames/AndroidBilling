@@ -21,9 +21,11 @@ import com.android.vending.billing.IMarketBillingService;
 import com.billing.Consts.PurchaseState;
 import com.billing.Consts.ResponseCode;
 import com.billing.Security.VerifiedPurchase;
+import android.widget.Toast;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +51,12 @@ import java.util.LinkedList;
  * You should modify and obfuscate this code before using it.
  */
 public class BillingService extends Service implements ServiceConnection {
+
+	// toast message : look like tool-tips for 2 seconds
+	public void MessageBox2(String message){
+		Context context = getApplicationContext();
+	    Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+	}
     private static final String TAG = "BillingService";
 
     /** The service connection to the remote MarketBillingService. */
@@ -235,11 +243,23 @@ public class BillingService extends Service implements ServiceConnection {
                 Log.e(TAG, "Error with requestPurchase");
                 return Consts.BILLING_RESPONSE_INVALID_REQUEST_ID;
             }
-
-            Intent intent = new Intent();
-            ResponseHandler.buyPageIntentResponse(pendingIntent, intent);
-            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
+           
+			Intent intent = new Intent();
+            ResponseHandler.buyPageIntentResponse(pendingIntent, intent); // affiche la dialog
+		/* 	fait a peut pres la meme chose que la ligne ci-dessus
+			try {
+			pendingIntent.send();
+			}
+			catch (PendingIntent.CanceledException e) {
+				
+			}
+		*/
+			long responseLong = response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
                     Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
+			
+			MessageBox2("Billing responce: " + response.toString()+ "\nIdReq:"+ responseLong);
+
+			return responseLong; // id utilisé dans la requette de reponse
         }
 
         @Override
@@ -530,6 +550,7 @@ public class BillingService extends Service implements ServiceConnection {
             request.responseCodeReceived(responseCode);
         }
         mSentRequests.remove(requestId);
+		MessageBox2("Responce Id:" + requestId + " Code:" + responseCode);
     }
 
     /**

@@ -208,7 +208,8 @@ public class Dungeons extends Activity implements OnClickListener,
 
     /** An array of product list entries for the products that can be purchased. */
     private static final CatalogEntry[] CATALOG = new CatalogEntry[] {
-        new CatalogEntry("sword_001", R.string.two_handed_sword, Managed.MANAGED),
+       new CatalogEntry("sword_001", R.string.two_handed_sword, Managed.MANAGED),
+		new CatalogEntry("sword_002", R.string.two_handed_sword_unknown, Managed.MANAGED),
         new CatalogEntry("potion_001", R.string.potions, Managed.UNMANAGED),
         new CatalogEntry("android.test.purchased", R.string.android_test_purchased,
                 Managed.UNMANAGED),
@@ -468,6 +469,35 @@ public class Dungeons extends Activity implements OnClickListener,
             showPayloadEditDialog();
         }
     }
+	// visual classic message box, but not modal and need to use back button to close it
+	public void MessageBox(String title,String message){
+		AlertDialog alertDialog;
+		alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(message);
+		alertDialog.show();
+	}
+	
+	// toast message : look like tool-tips for 2 seconds
+	public void MessageBox2(String message){
+	    Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+	}
+	
+    /**
+     * Displays the dialog used to show inapp detaile
+ 	 *	- check all sku availability (like sword_xxx or potion_xxx) 
+ 	 *	- try to know is it's managed or unmanaged 
+     */
+    private void showListInAppButton() {
+		String enumStr = ""; 
+		for (int i=0;i<5;i++) {
+			enumStr += CATALOG[i].sku + " (ckecking...)\n"; 
+			// CATALOG[0].nameId 
+		}
+		MessageBox("Enumeration",enumStr);
+		// MessageBox2("Ceci est un message!\n\nyep !");
+		return;
+	}
 
     /**
      * Displays the dialog used to edit the payload dialog.
