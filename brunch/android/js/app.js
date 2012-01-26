@@ -4655,7 +4655,7 @@ Store.prototype.generateErrorFromCode = function(code) {
 	return error[name];
 };
 
-Store.prototype.requestPayment = function(productID, success, fail, cancel) {
+Store.prototype.requestPurchase = function(productID, success, fail, cancel) {
 	var self = this;
 
 	return PhoneGap.exec(success, function(error) {
@@ -4663,7 +4663,7 @@ Store.prototype.requestPayment = function(productID, success, fail, cancel) {
 			cancel()
 		else
 			fail(self.generateErrorFromCode(error.code), error.code)
-	}, "StorePlugin", "requestPayment", [{productID: productID}]);
+	}, "StorePlugin", "requestPurchase", [{productID: productID}]);
 };
 
 Store.prototype.getProducts = function(params, success, fail) {
@@ -6877,22 +6877,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     HomeView.prototype.id = 'home-view';
 
     HomeView.prototype.render = function() {
-      window.plugins.StorePlugin.getProducts("productid", function() {
-        return alert("getProducts: success");
+      window.plugins.StorePlugin.requestPurchase("test_001", function() {});
+      return alert("requestPurchase: success", function() {
+        return alert("requestPurchase: error");
       }, function() {
-        return alert("getProducts: error");
-      }, function() {
-        return alert("getProducts: cancel");
+        return alert("requestPurchase: cancel");
       });
-      window.plugins.StorePlugin.requestPayment("test_001", function() {});
-      alert("requestPayment: success", function() {
-        return alert("requestPayment: error");
-      }, function() {
-        return alert("requestPayment: cancel");
-      });
-      $(this.el).html(homeTemplate());
-      return this;
     };
+
+    $(HomeView.el).html(homeTemplate());
+
+    HomeView;
 
     return HomeView;
 

@@ -31,9 +31,6 @@
 /Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/androidbilling/R$xml.class \
 /Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/androidbilling/R.class \
 /Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/Store.class \
-/Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/StorePlugin$1.class \
-/Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/StorePlugin$2.class \
-/Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/StorePlugin$StorePurchaseObserver.class \
 /Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/StorePlugin.class \
 /Users/alkaine/Codes/AndroidBilling/android/bin/classes/com/phonegap/store/StorePurchaseObserver.class \
 /Users/alkaine/Codes/AndroidBilling/android/libs/phonegap-1.3.0.jar \

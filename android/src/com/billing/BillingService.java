@@ -359,6 +359,9 @@ public class BillingService extends Service implements ServiceConnection {
 
     public BillingService() {
         super();
+		if (Consts.DEBUG) {
+            Log.d(TAG, "begin");
+		}
     }
 
     public void setContext(Context context) {

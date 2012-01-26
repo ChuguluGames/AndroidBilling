@@ -16,7 +16,7 @@ public class StorePurchaseObserver extends PurchaseObserver {
 
 	public StorePurchaseObserver(Activity activity, Handler handler) {
 		super(activity, handler);
-		Log.d(TAG, "StorePurchaseObserver");
+		Log.d(TAG, "begin");
 	}
 
 	@Override

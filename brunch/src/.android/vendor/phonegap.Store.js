@@ -21,7 +21,7 @@ Store.prototype.generateErrorFromCode = function(code) {
 	return error[name];
 };
 
-Store.prototype.requestPayment = function(productID, success, fail, cancel) {
+Store.prototype.requestPurchase = function(productID, success, fail, cancel) {
 	var self = this;
 
 	return PhoneGap.exec(success, function(error) {
@@ -29,7 +29,7 @@ Store.prototype.requestPayment = function(productID, success, fail, cancel) {
 			cancel()
 		else
 			fail(self.generateErrorFromCode(error.code), error.code)
-	}, "StorePlugin", "requestPayment", [{productID: productID}]);
+	}, "StorePlugin", "requestPurchase", [{productID: productID}]);
 };
 
 Store.prototype.getProducts = function(params, success, fail) {
