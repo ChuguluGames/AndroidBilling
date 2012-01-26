@@ -433,8 +433,7 @@ public class Dungeons extends Activity implements OnClickListener,
 
         final Set<String> ownedItems = new HashSet<String>();
         try {
-            int productIdCol = cursor.getColumnIndexOrThrow(
-                    PurchaseDatabase.PURCHASED_PRODUCT_ID_COL);
+            int productIdCol = cursor.getColumnIndexOrThrow(PurchaseDatabase.PURCHASED_PRODUCT_ID_COL);
             while (cursor.moveToNext()) {
                 String productId = cursor.getString(productIdCol);
                 ownedItems.add(productId);

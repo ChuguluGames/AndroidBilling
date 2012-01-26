@@ -17,10 +17,12 @@ public class Store {
 	private StorePurchaseObserver mStorePurchaseObserver;
 	private Handler mStoreHandler;
 	private BillingService mStoreBillingService;
+	public Activity mActivity;
 
 	public Boolean billingSupported;
 
 	public Store(Activity context) {
+		mActivity = context;
 		mStoreHandler = new Handler();
 		mStorePurchaseObserver = new StorePurchaseObserver(context, mStoreHandler);
 
@@ -28,11 +30,9 @@ public class Store {
 		mStoreBillingService.setContext(context);
 
 		// Check if billing is supported.
-		if (!mStoreBillingService.checkBillingSupported()) {
+		billingSupported = mStoreBillingService.checkBillingSupported();
+		if (!billingSupported) {
 			Log.d(TAG, "Billing not supported");
-			billingSupported = false;
-		} else {
-			billingSupported = true;
 		}
 	}
 

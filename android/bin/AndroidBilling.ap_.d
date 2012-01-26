@@ -12,4 +12,9 @@
 /Users/alkaine/Codes/AndroidBilling/android/bin/res/drawable-ldpi/ic_launcher.png \
 /Users/alkaine/Codes/AndroidBilling/android/bin/res/drawable-mdpi/ic_launcher.png \
 /Users/alkaine/Codes/AndroidBilling/android/assets/www \
+/Users/alkaine/Codes/AndroidBilling/android/assets/www/css \
+/Users/alkaine/Codes/AndroidBilling/android/assets/www/index.html \
+/Users/alkaine/Codes/AndroidBilling/android/assets/www/js \
+/Users/alkaine/Codes/AndroidBilling/android/assets/www/css/main.css \
+/Users/alkaine/Codes/AndroidBilling/android/assets/www/js/app.js \
 /Users/alkaine/Codes/AndroidBilling/android/AndroidManifest.xml \

@@ -1,11 +1,10 @@
-COMPILATION_MODE="debug"
 TARGET=device
 LOG=debug
 ACTIVITY=AndroidBilling
-PACKAGE=com.billing
-APK=bin/billing-debug.apk
+PACKAGE=com.phonegap.androidbilling
+COMPILATION_MODE=release
 # specific phonegap config
 PHONEGAP=true
 PHONEGAP_VERSION=1.3.0
-BUILDER=false
-WWW_FOLDER=false
+BUILDER=.pgt/builder
+WWW_FOLDER=../brunch/android/

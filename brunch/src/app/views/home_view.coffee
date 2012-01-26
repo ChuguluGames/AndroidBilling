@@ -5,12 +5,20 @@ class exports.HomeView extends Backbone.View
 
 	render: ->
 		window.plugins.StorePlugin.getProducts "productid"
-		, ->
-			alert "success"
-		, ->
-			alert "error"
-		, ->
-			alert "cancel"
+		  , ->
+  			alert "getProducts: success"
+  		, ->
+  			alert "getProducts: error"
+  		, ->
+  			alert "getProducts: cancel"
+			
+  	window.plugins.StorePlugin.requestPayment "test_001"
+    	, ->
+  			alert "requestPayment: success"
+  		, ->
+  			alert "requestPayment: error"
+  		, ->
+  			alert "requestPayment: cancel"
 
 		$(@el).html homeTemplate()
 		@

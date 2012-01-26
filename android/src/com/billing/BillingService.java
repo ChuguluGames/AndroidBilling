@@ -21,8 +21,8 @@ import com.android.vending.billing.IMarketBillingService;
 import com.billing.Consts.PurchaseState;
 import com.billing.Consts.ResponseCode;
 import com.billing.Security.VerifiedPurchase;
-import android.widget.Toast;
 
+import android.widget.Toast;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.AlertDialog;
@@ -73,8 +73,7 @@ public class BillingService extends Service implements ServiceConnection {
      * not yet received a response code. The HashMap is indexed by the
      * request Id that each request receives when it executes.
      */
-    private static HashMap<Long, BillingRequest> mSentRequests =
-        new HashMap<Long, BillingRequest>();
+    private static HashMap<Long, BillingRequest> mSentRequests = new HashMap<Long, BillingRequest>();
 
     /**
      * The base class for all requests that use the MarketBillingService.
@@ -246,12 +245,11 @@ public class BillingService extends Service implements ServiceConnection {
            
 			Intent intent = new Intent();
             ResponseHandler.buyPageIntentResponse(pendingIntent, intent); // affiche la dialog
-		/* 	fait a peut pres la meme chose que la ligne ci-dessus
+		/* 	// fait a peut pres la meme chose que la ligne ci-dessus
 			try {
-			pendingIntent.send();
+				pendingIntent.send();
 			}
-			catch (PendingIntent.CanceledException e) {
-				
+			catch (PendingIntent.CanceledException e) {	
 			}
 		*/
 			long responseLong = response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
@@ -259,7 +257,7 @@ public class BillingService extends Service implements ServiceConnection {
 			
 			MessageBox2("Billing responce: " + response.toString()+ "\nIdReq:"+ responseLong);
 
-			return responseLong; // id utilisé dans la requette de reponse
+			return responseLong; // id utilise dans la requette de reponse
         }
 
         @Override
