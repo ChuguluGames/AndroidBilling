@@ -20,7 +20,7 @@ public class Store {
 	private Handler mStoreHandler;
 	private BillingService mStoreBillingService;
 	public Activity mActivity;
-	private PurchaseDatabase mPurchaseDatabase;
+	//private PurchaseDatabase mPurchaseDatabase;
 
 	public Boolean billingSupported;
 
@@ -33,7 +33,7 @@ public class Store {
 		mStoreBillingService = new BillingService();
 		mStoreBillingService.setContext(context);
 
-        mPurchaseDatabase = new PurchaseDatabase(context);
+        //mPurchaseDatabase = new PurchaseDatabase(context);
 
 		registerPurchaseObserver();
 		

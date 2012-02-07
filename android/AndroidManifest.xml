@@ -3,7 +3,7 @@
 					android:windowSoftInputMode="adjustPan"
 					package="com.phonegap.androidbilling"
 					android:versionName="1.1"
-					android:versionCode="5">
+					android:versionCode="6">
 
 		<supports-screens
 			android:largeScreens="true"
