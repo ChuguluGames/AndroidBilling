@@ -20,20 +20,22 @@ public class Store {
 	private Handler mStoreHandler;
 	private BillingService mStoreBillingService;
 	public Activity mActivity;
+	
 	//private PurchaseDatabase mPurchaseDatabase;
 
 	public Boolean billingSupported;
 
-	public Store(Activity context) {
-		Log.d(TAG, "begin with activity:" + context);
-		mActivity = context;
+	public Store(Activity activity) {
+		Log.d(TAG, "begin with activity:" + activity);
+		mActivity = activity;
+	
 		mStoreHandler = new Handler();
-		mStorePurchaseObserver = new StorePurchaseObserver(context, mStoreHandler);
+		mStorePurchaseObserver = new StorePurchaseObserver(mActivity, mStoreHandler);
 
 		mStoreBillingService = new BillingService();
-		mStoreBillingService.setContext(context);
+		mStoreBillingService.setContext(mActivity);
 
-        //mPurchaseDatabase = new PurchaseDatabase(context);
+        //mPurchaseDatabase = new PurchaseDatabase(mActivity);
 
 		registerPurchaseObserver();
 		
@@ -42,8 +44,9 @@ public class Store {
 		if (!billingSupported) {
 			Log.d(TAG, "Billing not supported");
 		}
+		
 	}
-
+	
 	public void registerPurchaseObserver() {
 		ResponseHandler.register(mStorePurchaseObserver);
 	}
@@ -67,9 +70,5 @@ public class Store {
 			return false;
 		}
 		return true;
-	}
-
-	public void getCatalog() {
-
 	}
 }

@@ -141,8 +141,7 @@ public class ResponseHandler {
      * @param responseCode a response code from Market to indicate the state
      * of the request
      */
-    public static void responseCodeReceived(Context context, RequestPurchase request,
-            ResponseCode responseCode) {
+    public static void responseCodeReceived(Context context, RequestPurchase request, ResponseCode responseCode) {
         if (sPurchaseObserver != null) {
             sPurchaseObserver.onRequestPurchaseResponse(request, responseCode);
         }
@@ -157,8 +156,7 @@ public class ResponseHandler {
      * @param responseCode a response code from Market to indicate the state
      *     of the request
      */
-    public static void responseCodeReceived(Context context, RestoreTransactions request,
-            ResponseCode responseCode) {
+    public static void responseCodeReceived(Context context, RestoreTransactions request, ResponseCode responseCode) {
         if (sPurchaseObserver != null) {
             sPurchaseObserver.onRestoreTransactionsResponse(request, responseCode);
         }

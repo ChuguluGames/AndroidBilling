@@ -64,8 +64,7 @@ public abstract class PurchaseObserver {
      * @param purchaseTime the time the product was purchased, in
      * milliseconds since the epoch (Jan 1, 1970)
      */
-    public abstract void onPurchaseStateChange(PurchaseState purchaseState,
-            String itemId, int quantity, long purchaseTime, String developerPayload);
+    public abstract void onPurchaseStateChange(PurchaseState purchaseState, String itemId, int quantity, long purchaseTime, String developerPayload);
 
     /**
      * This is called when we receive a response code from Market for a
@@ -89,16 +88,14 @@ public abstract class PurchaseObserver {
      *       catalog.
      *   RESULT_ERROR is used for any other errors (such as a server error).
      */
-    public abstract void onRequestPurchaseResponse(RequestPurchase request,
-            ResponseCode responseCode);
+    public abstract void onRequestPurchaseResponse(RequestPurchase request, ResponseCode responseCode);
 
     /**
      * This is called when we receive a response code from Android Market for a
      * RestoreTransactions request that we made.  A response code of
      * RESULT_OK means that the request was successfully sent to the server.
      */
-    public abstract void onRestoreTransactionsResponse(RestoreTransactions request,
-            ResponseCode responseCode);
+    public abstract void onRestoreTransactionsResponse(RestoreTransactions request, ResponseCode responseCode);
 
     private void initCompatibilityLayer() {
         try {

@@ -6877,11 +6877,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     HomeView.prototype.id = 'home-view';
 
     HomeView.prototype.render = function() {
+      alert("requestPurchase: test_001");
       window.plugins.StorePlugin.requestPurchase("test_001", function() {});
-      return alert("requestPurchase: success", function() {
-        return alert("requestPurchase: error");
+      alert("requestPurchase1\nlaunch: success", function() {
+        return alert("requestPurchase1\nlaunch: error");
       }, function() {
-        return alert("requestPurchase: cancel");
+        return alert("requestPurchase1\nlaunch: cancel");
+      });
+      alert("requestPurchase: test_002");
+      return window.plugins.StorePlugin.requestPurchase("test_002", function() {
+        return alert("requestPurchase2\nlaunch: success");
+      }, function() {
+        return alert("requestPurchase2\nlaunch: error");
+      }, function() {
+        return alert("requestPurchase2\nlaunch: cancel");
       });
     };
 

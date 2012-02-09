@@ -53,10 +53,11 @@ import java.util.LinkedList;
 public class BillingService extends Service implements ServiceConnection {
 
 	// toast message : look like tool-tips for 2 seconds
-	public void MessageBox2(String message){
+	public void ToastMessage(String message){
 		Context context = getApplicationContext();
 	    Toast.makeText(context,message,Toast.LENGTH_LONG).show();
 	}
+	
     private static final String TAG = "BillingService";
 
     /** The service connection to the remote MarketBillingService. */
@@ -198,8 +199,7 @@ public class BillingService extends Service implements ServiceConnection {
             Bundle response = mService.sendBillingRequest(request);
             int responseCode = response.getInt(Consts.BILLING_RESPONSE_RESPONSE_CODE);
             if (Consts.DEBUG) {
-                Log.i(TAG, "CheckBillingSupported response code: " +
-                        ResponseCode.valueOf(responseCode));
+                Log.i(TAG, "CheckBillingSupported response code: " + ResponseCode.valueOf(responseCode));
             }
             boolean billingSupported = (responseCode == ResponseCode.RESULT_OK.ordinal());
             ResponseHandler.checkBillingSupportedResponse(billingSupported);
@@ -245,19 +245,11 @@ public class BillingService extends Service implements ServiceConnection {
            
 			Intent intent = new Intent();
             ResponseHandler.buyPageIntentResponse(pendingIntent, intent); // affiche la dialog
-		/* 	// fait a peut pres la meme chose que la ligne ci-dessus
-			try {
-				pendingIntent.send();
-			}
-			catch (PendingIntent.CanceledException e) {	
-			}
-		*/
-			long responseLong = response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
-                    Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
-			
-			MessageBox2("Billing responce: " + response.toString()+ "\nIdReq:"+ responseLong);
 
-			return responseLong; // id utilise dans la requette de reponse
+			long responseLong = response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID, Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
+			
+			ToastMessage("Billing responce: " + response.toString()+ "\nIdReq:"+ responseLong); //fordebug
+			return responseLong; // id used on request responses
         }
 
         @Override
@@ -283,8 +275,7 @@ public class BillingService extends Service implements ServiceConnection {
             request.putStringArray(Consts.BILLING_REQUEST_NOTIFY_IDS, mNotifyIds);
             Bundle response = mService.sendBillingRequest(request);
             logResponseCode("confirmNotifications", response);
-            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
-                    Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
+            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID, Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
         }
     }
 
@@ -309,8 +300,7 @@ public class BillingService extends Service implements ServiceConnection {
             request.putStringArray(Consts.BILLING_REQUEST_NOTIFY_IDS, mNotifyIds);
             Bundle response = mService.sendBillingRequest(request);
             logResponseCode("getPurchaseInformation", response);
-            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
-                    Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
+            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID, Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
         }
 
         @Override
@@ -341,8 +331,7 @@ public class BillingService extends Service implements ServiceConnection {
             request.putLong(Consts.BILLING_REQUEST_NONCE, mNonce);
             Bundle response = mService.sendBillingRequest(request);
             logResponseCode("restoreTransactions", response);
-            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID,
-                    Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
+            return response.getLong(Consts.BILLING_RESPONSE_REQUEST_ID, Consts.BILLING_RESPONSE_INVALID_REQUEST_ID);
         }
 
         @Override
@@ -551,7 +540,8 @@ public class BillingService extends Service implements ServiceConnection {
             request.responseCodeReceived(responseCode);
         }
         mSentRequests.remove(requestId);
-		MessageBox2("Responce Id:" + requestId + " Code:" + responseCode);
+		
+		ToastMessage("Responce Id:" + requestId + " Code:" + responseCode); //fordebug
     }
 
     /**
