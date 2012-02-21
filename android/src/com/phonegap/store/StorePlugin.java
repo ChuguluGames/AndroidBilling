@@ -1,10 +1,13 @@
 package com.phonegap.store;
 
 import com.phonegap.store.Store;
+import com.phonegap.store.StoreDelegate;
 import com.phonegap.androidbilling.AndroidBilling;
 
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,55 +20,69 @@ import com.phonegap.api.PluginResult;
 import com.phonegap.api.PluginResult.Status;
 
 public class StorePlugin extends Plugin {
-	private static final String TAG = "StorePlugin";
+    private static final String TAG = "StorePlugin";
+    
+    public static final String CMD_INITIALIZE = "initialize";
+    public static final String CMD_REQUEST_PAYMENT = "requestPurchase";
+    public static final String CMD_GET_PRODUCTS = "getProducts";
 
-	public static final String CMD_REQUEST_PAYMENT = "requestPayment";
-	public static final String CMD_GET_PRODUCTS = "getProducts";
+    /*
+     * Executes the request and returns PluginResult.
+     *
+     * @param action action to perform.
+     * @param data input data.
+     * @param callbackId The callback id used when calling back into JavaScript.
+     * @return A PluginResult object with a status and message.
+     *
+     * org.json.JSONArray, java.lang.String)
+     */
+    @Override
+    public PluginResult execute(String action, JSONArray argumentsArray, String callbackId) {
+        Log.d(TAG, "Plugin Called");
 
-	/*
-	* Executes the request and returns PluginResult.
-	*
-	* @param action action to perform.
-	* @param data input data.
-	* @param callbackId The callback id used when calling back into JavaScript.
-	* @return A PluginResult object with a status and message.
-	*
-	* org.json.JSONArray, java.lang.String)
-	*/
+        Store store = getStore();
+        
+        // check if billing is supported    
+        if (!store.isBillingSupported()) {
+             return new PluginResult(Status.ERROR);
+        } else {
+            
+            if (action.equals(CMD_INITIALIZE)) {
+                store.setDelegate(new StoreDelegate(this, callbackId));    
+                return new PluginResult(Status.OK);
+                
+            } else if (action.equals(CMD_REQUEST_PAYMENT)) {
+                Log.d(TAG, "Execute " + CMD_REQUEST_PAYMENT);
 
-	@Override
-	public PluginResult execute(String action, JSONArray arguments, String callbackId) {
-		Log.d(TAG, "Plugin Called");
+                JSONObject argumentsObject;
+                try {
+                    argumentsObject = argumentsArray.getJSONObject(0);
+                    String productID = argumentsObject.getString("productID");
+                    store.requestPurchase(productID);
 
-		PluginResult result = null;
+                } catch (JSONException ex) {
+                    Logger.getLogger(StorePlugin.class.getName()).log(Level.SEVERE, null, ex);
+                    return new PluginResult(Status.JSON_EXCEPTION);
+                }
 
-		if (action.equals(CMD_REQUEST_PAYMENT)) {
-			Log.d(TAG, "Execute requestPayment");
-			this.requestPayment();
+            } else if (action.equals(CMD_GET_PRODUCTS)) {
+                Log.d(TAG, "Execute " + CMD_GET_PRODUCTS);
+                this.getProducts();
+                return new PluginResult(Status.OK);
 
-			result = new PluginResult( Status.OK );
-
-		} else if (action.equals(CMD_GET_PRODUCTS)) {
-			Log.d(TAG, "Execute getProducts");
-			this.getProducts();
-			result = new PluginResult( Status.OK );
-
-		} else {
-			Log.e(TAG, "Invalid action : " + action + " passed");
-			result = new PluginResult(Status.INVALID_ACTION);
-		}
-
-		return result;
-	};
+            } else {
+                Log.e(TAG, "Invalid action : " + action + " passed");
+                return new PluginResult(Status.INVALID_ACTION);
+            }
+        }
+        
+        return null;
+    }
 
 	private void getProducts() {
-
-		Store store = (Store) ((AndroidBilling) this.ctx).store;
-
-	}
-
-	private void requestPayment() {
-
-	}
-
+    }
+        
+    private Store getStore() {
+        return (Store) ((AndroidBilling) this.ctx).store;
+    }
 }

@@ -1,2 +1,4 @@
-bin/*
+.gitignore
+assets/www/*
+build/*
 gen/*

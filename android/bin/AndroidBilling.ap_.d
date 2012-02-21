@@ -12,11 +12,8 @@
 /Users/davidbillamboz/Projects/AndroidBilling/android/bin/res/drawable-ldpi/ic_launcher.png \
 /Users/davidbillamboz/Projects/AndroidBilling/android/bin/res/drawable-mdpi/ic_launcher.png \
 /Users/davidbillamboz/Projects/AndroidBilling/android/assets/www \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/assets \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/css \
+/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/images \
 /Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/index.html \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/js \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/assets/images \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/css/main.css \
-/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/js/app.js \
+/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/scripts \
+/Users/davidbillamboz/Projects/AndroidBilling/android/assets/www/scripts/app.js \
 /Users/davidbillamboz/Projects/AndroidBilling/android/AndroidManifest.xml \

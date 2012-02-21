@@ -1,6 +1,7 @@
 package com.phonegap.store;
 
 import com.phonegap.store.StorePurchaseObserver;
+import com.phonegap.store.StoreDelegate;
 import com.billing.BillingService;
 import com.billing.ResponseHandler;
 
@@ -12,49 +13,73 @@ import android.os.Handler;
 import android.util.Log;
 
 public class Store {
-	private static final String TAG = "Store";
+    private static final String TAG = "Store";
+    
+    private StorePurchaseObserver mStorePurchaseObserver;
+    private Handler mStoreHandler;
+    private BillingService mStoreBillingService;
+    public boolean mbillingSupported;
+    private StoreDelegate mDelegate;
+    
+    public Store(Activity context) {
+        mStoreHandler = new Handler();
+        mStorePurchaseObserver = new StorePurchaseObserver(context, mStoreHandler);
 
-	private StorePurchaseObserver mStorePurchaseObserver;
-	private Handler mStoreHandler;
-	private BillingService mStoreBillingService;
+        mStoreBillingService = new BillingService();
+        mStoreBillingService.setContext(context);
+        
+        runAsynchroniousBillingSupportedRequest();
+    }
 
-	public Boolean billingSupported;
+    public void registerPurchaseObserver() {
+        ResponseHandler.register(mStorePurchaseObserver);
+    }
 
-	public Store(Activity context) {
-		mStoreHandler = new Handler();
-		mStorePurchaseObserver = new StorePurchaseObserver(context, mStoreHandler);
+    public void unregisterPurchaseObserver() {
+        ResponseHandler.unregister(mStorePurchaseObserver);
+    }
 
-		mStoreBillingService = new BillingService();
-		mStoreBillingService.setContext(context);
+    public void unbindBillingService() {
+        mStoreBillingService.unbind();
+    }
 
-		// Check if billing is supported.
-		if (!mStoreBillingService.checkBillingSupported()) {
-			Log.d(TAG, "Billing not supported");
-			billingSupported = false;
-		} else {
-			billingSupported = true;
-		}
-	}
+    // do a payment with the specified producID (sku identifier)
+    public Boolean requestPurchase(String mSku) {
+        Log.d(TAG, "requestPayment with sku: " + mSku);
+                
+        String mPayloadContents = null; // for debug only
 
-	public void registerPurchaseObserver() {
-		ResponseHandler.register(mStorePurchaseObserver);
-	}
+        if (!mStoreBillingService.requestPurchase(mSku, mPayloadContents)) {
+            Log.d(TAG, "requestPayment error");
+            return false;
+        }
+        return true;
+    }
+    
+    /* delegate */
+    public void setDelegate(StoreDelegate delegate) {
+        mDelegate = delegate;
+    }
+    
+    public StoreDelegate getDelegate() {
+        return mDelegate;
+    }
+    
+    /* Billing support */
+    private void runAsynchroniousBillingSupportedRequest() {
+        // Check if billing is supported.
+        mStoreBillingService.checkBillingSupported();
+    }
 
-	public void unregisterPurchaseObserver() {
-		ResponseHandler.unregister(mStorePurchaseObserver);
-	}
-
-	public void unbindBillingService() {
-		mStoreBillingService.unbind();
-	}
-
-	public void requestPurchase() {
-    // if (!mBillingService.requestPurchase(mSku, mPayloadContents)) {
-
-    // }
-	}
-
-	public void getCatalog() {
-
-	}
+    public void setBillingSupport(boolean supported) {
+        Log.d(TAG, "setBillingSupport " + supported);
+        mbillingSupported = supported;
+    }
+    
+    public boolean isBillingSupported() {
+        return mbillingSupported;
+    }
+    
+    public void getCatalog() {
+    }    
 }

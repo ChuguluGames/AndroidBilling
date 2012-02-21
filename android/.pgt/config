@@ -1,6 +1,27 @@
-# custom builder script before compilation (set to "no" to disable)
-BUILDER=android/.pgt/builder
-# directory of the webapp relative to the app root
-WWW_DIR=brunch/android/
-# final phonegap library path in the android app assets
-PHONEGAP_PATH=assets/js/
+# default values
+COMPILATION_MODE=debug
+TARGET=device
+LOG=debug
+PROJECT_NAME=AndroidBilling
+ACTIVITY=AndroidBilling
+PACKAGE=com.phonegap.androidbilling
+
+# specific phonegap config
+BUILDER=.pgt/builder
+
+# release config
+KEY_PASS=false
+
+# apk names
+APK_DEBUG=AndroidBilling-debug.apk
+APK_DEBUG_UNSIGNED=AndroidBilling-debug-unsigned.apk
+APK_DEBUG_UNALIGNED=AndroidBilling-debug-unaligned.apk
+APK_RELEASE=AndroidBilling-release.apk
+APK_RELEASE_UNSIGNED=AndroidBilling-release-unsigned.apk
+APK_RELEASE_UNALIGNED=AndroidBilling-release-unaligned.apk
+
+# ant properties
+ANT_SOURCE_DIR=src
+ANT_OUT_DIR=bin
+ANT_KEY_STORE=release.keystore
+ANT_KEY_ALIAS=releasekey
