@@ -47,13 +47,13 @@ public class StorePurchaseObserver extends PurchaseObserver {
         
         if (responseCode == ResponseCode.RESULT_OK) {
             Log.i(TAG, "purchase was successfully sent to server");
-            store.getDelegate().onPurchaseSuccess();
+            store.getDelegate().onPurchaseSuccess(request);
         } else if (responseCode == ResponseCode.RESULT_USER_CANCELED) {
             Log.i(TAG, "user canceled purchase");
-            store.getDelegate().onPurchaseCanceled();
+            store.getDelegate().onPurchaseCanceled(request);
         } else {
             Log.i(TAG, "purchase failed");
-            store.getDelegate().onPurchaseError();
+            store.getDelegate().onPurchaseError(request);
         }
     }
 
